@@ -2,14 +2,11 @@
 public class SpellChecker {
 
 	public static void main(String[] args) {
-		//String word = args[0];
-		//int threshold = Integer.parseInt(args[1]);
-		String word = "coooool";
-		int threshold = 3;
+		String word = args[0];
+		int threshold = Integer.parseInt(args[1]);
 		String[] dictionary = readDictionary("dictionary.txt");
 		String correction = spellChecker(word, threshold, dictionary);
 		System.out.println(correction);
-
 	}
 
 	public static String tail(String str) {
@@ -18,6 +15,8 @@ public class SpellChecker {
 	}
 
 	public static int levenshtein(String word1, String word2) {
+		word1 = word1.toLowerCase();
+		word2 = word2.toLowerCase();
 
 		if (word2.length() == 0) {
 			return word1.length();
@@ -36,8 +35,8 @@ public class SpellChecker {
 
 		In in = new In(fileName);
 
-		for(int i = 0; i < dictionary.length; i++){
-			dictionary[i]= in.readLine();
+		for (int i = 0; i < dictionary.length; i++) {
+			dictionary[i] = in.readLine();
 		}
 
 		return dictionary;
@@ -48,18 +47,17 @@ public class SpellChecker {
 		int correntNumChanges = 0;
 		String valueOfminChangesWord = "";
 
-		for(int i = 0; i < dictionary.length; i++){
+		for (int i = 0; i < dictionary.length; i++) {
 			correntNumChanges = levenshtein(word, dictionary[i]);
-			 if (minChanges > correntNumChanges) {
+			if (minChanges > correntNumChanges) {
 				minChanges = correntNumChanges;
 				valueOfminChangesWord = dictionary[i];
-			 }
+			}
 		}
 		if (minChanges > threshold) {
 			return word;
-		}
-		else{
-		return valueOfminChangesWord;
+		} else {
+			return valueOfminChangesWord;
 		}
 	}
 
